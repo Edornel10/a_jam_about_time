@@ -720,7 +720,7 @@ MonoBehaviour:
   lmWalls:
     serializedVersion: 2
     m_Bits: 64
-  fJumpVelocity: 10
+  fJumpVelocity: 15
   fJumpPressedRememberTime: 0.2
   fGroundedRememberTime: 0.2
   fHorizontalAcceleration: 1
@@ -773,7 +773,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
-  m_GravityScale: 1
+  m_GravityScale: 2
   m_Material: {fileID: 6200000, guid: 3f5b022e7d66e40399a5b2e47b9adf55, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 0
