@@ -56,18 +56,18 @@
     <Analyzer Include="/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Analyzers/Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Scripts/PlayerHealthManager.cs" />
     <Compile Include="Assets/Scripts/MusicPlayer.cs" />
     <Compile Include="Assets/Scripts/CinemachineShake.cs" />
     <Compile Include="Assets/Scripts/HealthManager.cs" />
     <Compile Include="Assets/Scripts/LevelManager.cs" />
     <Compile Include="Assets/Scripts/Movement.cs" />
-    <Compile Include="Assets/Scripts/RoboNurse.cs" />
-    <Compile Include="Assets/Scripts/HealthBar.cs" />
-    <Compile Include="Assets/Scripts/RoboCleaning.cs" />
-    <Compile Include="Assets/Scripts/RoboWorker.cs" />
     <Compile Include="Assets/Scripts/RoboMechanic.cs" />
-    <Compile Include="Assets/PlayerHealthManager.cs" />
-    <Compile Include="Assets/Bullet.cs" />
+    <Compile Include="Assets/Scripts/RoboNurse.cs" />
+    <Compile Include="Assets/Scripts/RoboCleaning.cs" />
+    <Compile Include="Assets/Scripts/HealthBar.cs" />
+    <Compile Include="Assets/Scripts/Bullet.cs" />
+    <Compile Include="Assets/Scripts/RoboWorker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
