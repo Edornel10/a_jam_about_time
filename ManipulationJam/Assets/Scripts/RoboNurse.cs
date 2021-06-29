@@ -6,21 +6,21 @@ using Pathfinding;
 public class RoboNurse : MonoBehaviour
 {
     [Header("Idle Move")]
-    [SerializeField] float speedIdle;
-    [SerializeField] float speedFlee;
+    [SerializeField] float speedIdle = 150f;
+    [SerializeField] float speedFlee = 300f;
     [Space]
     [SerializeField] float stoppingPointLeft;
     [SerializeField] float stoppingPointRight;
     [Space]
-    [SerializeField] float timeOfFleeing;
+    [SerializeField] float distanceToFlee = 2f;
 
     [Header("Pathfinding")]
     [SerializeField] float activateDistance = 50f;
     [SerializeField] float pathUpdateSeconds = 0.5f;
+    [SerializeField] Transform[] targets;
 
     [Header("Physicis")]
     [SerializeField] LayerMask lmWalls;
-    [SerializeField] float speed = 200f;
     [SerializeField] float maxVelocity = 1f;
     [SerializeField] float nextWaypointDistance = 3f;
     [SerializeField] float jumpNodeHeightRequirement = 0.8f;
@@ -36,68 +36,133 @@ public class RoboNurse : MonoBehaviour
     Transform player;
     private Path path;
     private int currentWaypoint = 0;
+    private int currentPath = 0;
+    private Vector2 startPos;
     bool isGrounded = false;
+    bool goBack = false;
     Seeker seeker;
     Rigidbody2D rb;
-    BoxCollider2D bc;
+    CircleCollider2D cc;
 
     void Start()
     {
+        startPos = transform.position;
+
         player = GameObject.FindGameObjectWithTag("Player").transform;
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
-        bc = GetComponent<BoxCollider2D>();
+        cc = GetComponent<CircleCollider2D>();
 
-        InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
+        StartCoroutine(Movement());
+        StartCoroutine(InvokeRepeat());
     }
 
-    private void FixedUpdate()
+    private IEnumerator Movement()
     {
-        if (TargetInDistance() && followEnabled)
+        while (true)
         {
-            PathFollow();
+
+            float distance = Vector2.Distance(rb.position, player.transform.position);
+            if (distance < distanceToFlee)
+            {
+                StartCoroutine(PathFollow());
+                followEnabled = true;
+            }
+            else
+            {
+                followEnabled = false;
+
+
+                if (transform.position.x < stoppingPointLeft)
+                    speedIdle = Mathf.Abs(speedIdle);
+                else if (transform.position.x > stoppingPointRight)
+                    speedIdle = -Mathf.Abs(speedIdle);
+
+                rb.velocity = new Vector2(speedIdle * Time.deltaTime, rb.velocity.y);
+                if(transform.position.x - 1 < stoppingPointLeft || transform.position.x + 1 > stoppingPointRight)
+                {
+                    seeker.StartPath(rb.position, startPos, OnPathComplete);
+                    goBack = true;
+                    yield return StartCoroutine(GoToStartPos());
+                    goBack = false;
+                }
+            }
+            yield return null;
         }
     }
 
-    private void UpdatePath()
+    private IEnumerator GoToStartPos()
     {
+        while(transform.position.x < stoppingPointLeft || transform.position.x > stoppingPointRight)
+        {
+            yield return StartCoroutine(PathFollow());
+            yield return null;
+        }
+        yield return null;
+    }
+
+    private IEnumerator InvokeRepeat()
+    {
+        while (true)
+        {
+            StartCoroutine(UpdatePath());
+            yield return new WaitForSeconds(pathUpdateSeconds);
+        }
+    }
+
+    private IEnumerator UpdatePath()
+    {
+
         if (followEnabled && TargetInDistance() && seeker.IsDone())
         {
-            seeker.StartPath(rb.position, player.position, OnPathComplete);
+            seeker.StartPath(rb.position, targets[currentPath].position, OnPathComplete);
         }
+        if(goBack)
+        {
+            seeker.StartPath(rb.position, startPos, OnPathComplete);
+        }
+        yield return null;
     }
 
-    private void PathFollow()
+    private IEnumerator PathFollow()
     {
         if (path == null)
         {
-            return;
+            yield return null;
         }
 
         // Reached end of path
         if (currentWaypoint >= path.vectorPath.Count)
         {
-            return;
+            currentWaypoint = 0;
+            currentPath++;
+            if (currentPath >= targets.Length)
+                currentPath = 0;
+            UpdatePath();
         }
 
         // See if colliding with anything
-        bool isGrounded = bc.IsTouchingLayers(lmWalls);
+        bool isGrounded = cc.IsTouchingLayers(lmWalls);
 
         // Direction Calculation
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        Vector2 force = direction * speed * Time.deltaTime;
+        //Vector2 force = direction * speed * Time.deltaTime;
 
         // Jump
         if (jumpEnabled && isGrounded)
         {
             if (direction.y > jumpNodeHeightRequirement)
             {
-                rb.AddForce(Vector2.up * speed * jumpModifier);
+                yield return StartCoroutine(Jump());               
             }
         }
 
         // Movement
-        rb.velocity = new Vector2(force.x, rb.velocity.y);
+        if(direction.x > 0)
+            rb.velocity = new Vector2(speedFlee * Time.deltaTime, rb.velocity.y);
+        else
+            rb.velocity = new Vector2(-speedFlee * Time.deltaTime, rb.velocity.y);
+
 
         // Next Waypoint
         float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
@@ -118,11 +183,22 @@ public class RoboNurse : MonoBehaviour
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
         }
+        yield return null;
+    }
+
+    private IEnumerator Jump()
+    {
+        yield return UpdatePath();
+        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+        if (direction.y > jumpNodeHeightRequirement)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, direction.y * jumpModifier);
+        }
     }
 
     private bool TargetInDistance()
     {
-        return Vector2.Distance(transform.position, player.transform.position) < activateDistance;
+        return Vector2.Distance(transform.position, targets[currentPath].transform.position) < activateDistance;
     }
 
     private void OnPathComplete(Path p)
@@ -130,18 +206,6 @@ public class RoboNurse : MonoBehaviour
         if (!p.error)
         {
             path = p;
-            currentWaypoint = 0;
         }
     }
-
-    IEnumerator MoveIdle()
-    {
-        yield return null;
-    }
-
-    IEnumerator Flee()
-    {
-        yield return null;
-    }
-
 }

@@ -56,12 +56,12 @@
     <Analyzer Include="/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Analyzers/Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets/AstarPathfindingProject/PackageTools/Editor/EditorBase.cs" />
-    <Compile Include="Assets/AstarPathfindingProject/PackageTools/Editor/EditorGUIx.cs" />
-    <Compile Include="Assets/AstarPathfindingProject/PackageTools/Editor/EnumFlagDrawer.cs" />
+    <Compile Include="Assets/Sources/AstarPathfindingProject/PackageTools/Editor/EditorBase.cs" />
+    <Compile Include="Assets/Sources/AstarPathfindingProject/PackageTools/Editor/EnumFlagDrawer.cs" />
+    <Compile Include="Assets/Sources/AstarPathfindingProject/PackageTools/Editor/EditorGUIx.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets/AstarPathfindingProject/PackageTools/Editor/PackageToolsEditor.asmdef" />
+    <None Include="Assets/Sources/AstarPathfindingProject/PackageTools/Editor/PackageToolsEditor.asmdef" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -301,6 +301,9 @@
     <Reference Include="Unity.Plastic.Antlr3.Runtime">
       <HintPath>Library/PackageCache/com.unity.collab-proxy@1.5.7/Lib/Editor/PlasticSCM/Unity.Plastic.Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>Assets/Sources/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+    </Reference>
     <Reference Include="log4netPlastic">
       <HintPath>Library/PackageCache/com.unity.collab-proxy@1.5.7/Lib/Editor/PlasticSCM/log4netPlastic.dll</HintPath>
     </Reference>
@@ -309,9 +312,6 @@
     </Reference>
     <Reference Include="unityplastic">
       <HintPath>Library/PackageCache/com.unity.collab-proxy@1.5.7/Lib/Editor/PlasticSCM/unityplastic.dll</HintPath>
-    </Reference>
-    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
-      <HintPath>Assets/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>Library/PackageCache/com.unity.ext.nunit@1.0.6/net35/unity-custom/nunit.framework.dll</HintPath>
