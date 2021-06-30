@@ -11,6 +11,7 @@ public class RoboWorker : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] float waitUntilAttack;
+    [SerializeField] float waitAfterAttack;
     [SerializeField] float attackRange;
     [SerializeField] float attackTime;
     [SerializeField] float damage;
@@ -36,7 +37,9 @@ public class RoboWorker : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, player.position) < attackRange)
             {
+                print("Attack");
                 yield return StartCoroutine(Attack());
+                print("Damage");
             }
 
             if (transform.position.x < stoppingPointLeft)
@@ -65,30 +68,45 @@ public class RoboWorker : MonoBehaviour
         Vector2 direction = player.position - transform.position;
         rb.velocity = Vector2.zero;
 
+        if ((player.position - transform.position).x > 0)
+        {
+            transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else if ((player.position - transform.position).x < 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+
         yield return new WaitForSeconds(waitUntilAttack);
 
 
         //DoDamage
         float time = attackTime;
+        bool alreadyAttacked = false; ;
         while (time > 0)
         {
             time -= Time.deltaTime;
-            Collider2D[] colliderList = Physics2D.OverlapAreaAll(attackPointA.position, attackPointB.position);
-            foreach (Collider2D collider in colliderList)
+            if(!alreadyAttacked)
             {
-                print(collider.transform.tag);
-                if (collider.transform.tag == "Player")
+                Collider2D[] colliderList = Physics2D.OverlapAreaAll(attackPointA.position, attackPointB.position);
+                foreach (Collider2D collider in colliderList)
                 {
-                    PlayerHealthManager hm;
-                    if (collider.transform.TryGetComponent<PlayerHealthManager>(out hm))
+    //                print(collider.transform.tag);
+                    if (collider.transform.tag == "Player")
                     {
-                        hm.InflictDamage(damage);
-                        //SendMessageUpwards("OnAttack", SendMessageOptions.DontRequireReceiver);
+                        PlayerHealthManager hm;
+                        if (collider.transform.TryGetComponent<PlayerHealthManager>(out hm))
+                        {
+                            hm.InflictDamage(damage);
+                            alreadyAttacked = true;
+                            //SendMessageUpwards("OnAttack", SendMessageOptions.DontRequireReceiver);
+                        }
                     }
                 }
             }
             yield return null;
         }
+        yield return new WaitForSeconds(waitAfterAttack);
     }
 
 }

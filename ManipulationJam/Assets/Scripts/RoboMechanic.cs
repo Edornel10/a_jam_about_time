@@ -11,13 +11,12 @@ public class RoboMechanic : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] float waitUntilAttack;
+    [SerializeField] float waitAfterAttack;
     [SerializeField] float attackRange;
     [SerializeField] float attackTime;
     [SerializeField] float damage;
     [SerializeField] float bulletSpeed;
     [SerializeField] float spread;
-    [SerializeField] Transform attackPointA;
-    [SerializeField] Transform attackPointB;
     [SerializeField] GameObject bullet;
 
     Rigidbody2D rb;
@@ -78,5 +77,8 @@ public class RoboMechanic : MonoBehaviour
 
         shot = Instantiate(bullet, transform.position, Quaternion.identity);
         shot.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Sign(direction.x) * bulletSpeed, -spread);
+
+        yield return new WaitForSeconds(waitAfterAttack);
+
     }
 }

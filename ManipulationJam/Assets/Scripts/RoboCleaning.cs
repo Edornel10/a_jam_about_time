@@ -11,6 +11,7 @@ public class RoboCleaning : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] float waitUntilAttack;
+    [SerializeField] float waitAfterAttack;
     [SerializeField] float attackRange;
     [SerializeField] float attackSpeed;
     [SerializeField] float attackTime;
@@ -68,7 +69,7 @@ public class RoboCleaning : MonoBehaviour
 
         yield return new WaitForSeconds(waitUntilAttack);
 
-        bc.isTrigger = true;
+        //bc.isTrigger = true;
 
         if (direction.x < 0)
             attackSpeed = -Mathf.Abs(attackSpeed);
@@ -98,6 +99,7 @@ public class RoboCleaning : MonoBehaviour
             }
             yield return null;
         }
-        bc.isTrigger = false;
+        yield return new WaitForSeconds(waitAfterAttack);
+        //bc.isTrigger = false;
     }
 }

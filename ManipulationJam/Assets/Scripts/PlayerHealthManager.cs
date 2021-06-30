@@ -54,7 +54,6 @@ public class PlayerHealthManager : MonoBehaviour
             damageTimer = invisibleTimeAfterDamage;
             sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, .5f);
             Debug.Log(d);
-            Debug.Log(d);
             health -= d;
             healthBar.SetLife(health);
         }

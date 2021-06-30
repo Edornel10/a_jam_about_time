@@ -16,6 +16,7 @@ public class RoboNurse : MonoBehaviour
 
     [Header("Pathfinding")]
     [SerializeField] float activateDistance = 50f;
+    [SerializeField] float timeOfFleeing = 4f;
     [SerializeField] float pathUpdateSeconds = 0.5f;
     [SerializeField] Transform[] targets;
 
@@ -37,6 +38,7 @@ public class RoboNurse : MonoBehaviour
     private Path path;
     private int currentWaypoint = 0;
     private int currentPath = 0;
+    private float fleeTimer = 0f;
     private Vector2 startPos;
     bool isGrounded = false;
     bool goBack = false;
@@ -63,8 +65,10 @@ public class RoboNurse : MonoBehaviour
         {
 
             float distance = Vector2.Distance(rb.position, player.transform.position);
-            if (distance < distanceToFlee)
+            if (distance < distanceToFlee || fleeTimer > 0)
             {
+                if (distance < distanceToFlee)
+                    fleeTimer = timeOfFleeing;
                 StartCoroutine(PathFollow());
                 followEnabled = true;
             }
@@ -87,6 +91,7 @@ public class RoboNurse : MonoBehaviour
                     goBack = false;
                 }
             }
+            fleeTimer -= Time.deltaTime;
             yield return null;
         }
     }

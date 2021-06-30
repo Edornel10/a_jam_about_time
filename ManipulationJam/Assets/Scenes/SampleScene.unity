@@ -357,7 +357,7 @@ Transform:
   m_Children:
   - {fileID: 1953906956}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
@@ -620,7 +620,7 @@ Transform:
   - {fileID: 719255804}
   - {fileID: 6163992}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &798863113
 GameObject:
@@ -664,7 +664,7 @@ GameObject:
   - component: {fileID: 810354025}
   - component: {fileID: 810354024}
   - component: {fileID: 810354023}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RoboCleaning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -684,14 +684,14 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 2
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!61 &810354024
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -733,11 +733,12 @@ MonoBehaviour:
   speedIdle: 200
   stoppingPointLeft: 26
   stoppingPointRight: 31
-  waitUntilAttack: 1.5
+  waitUntilAttack: 0.75
+  waitAfterAttack: 1
   attackRange: 3
   attackSpeed: 40
   attackTime: 0.1
-  damage: 20
+  damage: 30
   attackPointA: {fileID: 430253950}
   attackPointB: {fileID: 84178253}
 --- !u!4 &810354026
@@ -747,15 +748,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810354022}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 27.57, y: -4.48, z: -16.092701}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 20.615019, y: -8.7146435, z: 3.1027946}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1760590841}
   - {fileID: 430253950}
   - {fileID: 84178253}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 2102294489}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &813766929
 GameObject:
@@ -769,7 +770,7 @@ GameObject:
   - component: {fileID: 813766932}
   - component: {fileID: 813766931}
   - component: {fileID: 813766930}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RoboWorker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -792,7 +793,8 @@ MonoBehaviour:
   stoppingPointLeft: 18
   stoppingPointRight: 22
   waitUntilAttack: 1
-  attackRange: 1
+  waitAfterAttack: 1
+  attackRange: 2
   attackTime: 1
   damage: 20
   attackPointA: {fileID: 1264820615}
@@ -807,7 +809,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -831,7 +833,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813766929}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -843,7 +845,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!4 &813766933
 Transform:
   m_ObjectHideFlags: 0
@@ -851,15 +853,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 813766929}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 20.06, y: -0.21, z: -16.092701}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 13.105019, y: -4.75, z: 3.1027946}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1951117919}
   - {fileID: 1264820615}
   - {fileID: 1674334726}
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_Father: {fileID: 2102294489}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &866203479 stripped
 Transform:
@@ -987,7 +989,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1164631766
 GameObject:
@@ -1233,7 +1235,7 @@ Transform:
   - {fileID: 679515285}
   - {fileID: 1703393584}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1289407927
 MonoBehaviour:
@@ -1376,7 +1378,7 @@ Transform:
   m_Children:
   - {fileID: 1625515461}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1338227369
 MonoBehaviour:
@@ -24441,7 +24443,7 @@ GameObject:
   - component: {fileID: 1978417461}
   - component: {fileID: 1978417465}
   - component: {fileID: 1978417462}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RoboNurse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24520,13 +24522,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978417460}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.39, y: 5.1, z: -15.347719}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.43502, y: 0.8653569, z: 3.8477764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1169179671}
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 2102294489}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1978417465
 MonoBehaviour:
@@ -24540,12 +24542,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eec5be187dac4d8496143c117a7e2da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedIdle: 150
-  speedFlee: 300
+  speedIdle: 250
+  speedFlee: 600
   stoppingPointLeft: 6
   stoppingPointRight: 15
-  distanceToFlee: 12
+  distanceToFlee: 6
   activateDistance: 50
+  timeOfFleeing: 4
   pathUpdateSeconds: 0.5
   targets:
   - {fileID: 798863114}
@@ -24555,8 +24558,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxVelocity: 1
-  nextWaypointDistance: 1
-  jumpNodeHeightRequirement: 0.1
+  nextWaypointDistance: 2
+  jumpNodeHeightRequirement: 0.25
   jumpModifier: 23
   jumpCheckOffset: 0.1
   followEnabled: 1
@@ -24574,7 +24577,7 @@ GameObject:
   - component: {fileID: 2062086678}
   - component: {fileID: 2062086677}
   - component: {fileID: 2062086676}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RoboMechanic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24597,13 +24600,12 @@ MonoBehaviour:
   stoppingPointLeft: -19
   stoppingPointRight: -14
   waitUntilAttack: 1
-  attackRange: 3
+  waitAfterAttack: 1
+  attackRange: 5
   attackTime: 1
   damage: 20
-  bulletSpeed: 5
+  bulletSpeed: 10
   spread: 1
-  attackPointA: {fileID: 0}
-  attackPointB: {fileID: 0}
   bullet: {fileID: 125574856103442340, guid: 8e019557fd9d14b639f96bc5beef24db, type: 3}
 --- !u!61 &2062086677
 BoxCollider2D:
@@ -24639,7 +24641,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062086675}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -24651,7 +24653,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 6
 --- !u!4 &2062086679
 Transform:
   m_ObjectHideFlags: 0
@@ -24659,13 +24661,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062086675}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -17.65, y: 6.79, z: -16.092701}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -24.60498, y: 2.2553568, z: 3.1027946}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1164631767}
-  m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_Father: {fileID: 2102294489}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2065328423
 PrefabInstance:
@@ -24813,3 +24815,37 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3605733877782923993, guid: 14887de5671c2664384a4c6dd20dee82, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 14887de5671c2664384a4c6dd20dee82, type: 3}
+--- !u!1 &2102294488
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2102294489}
+  m_Layer: 0
+  m_Name: Enemies
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2102294489
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102294488}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.9549804, y: 4.234643, z: -19.195496}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1978417464}
+  - {fileID: 810354026}
+  - {fileID: 813766933}
+  - {fileID: 2062086679}
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
