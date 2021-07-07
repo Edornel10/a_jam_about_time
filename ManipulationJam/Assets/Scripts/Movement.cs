@@ -104,7 +104,15 @@ public class Movement : MonoBehaviour
             moveParticles.emissionRate = 0;
         }
         // Flip Sprite
-        mySpriteRenderer.flipX = fFacingRight;
+        if (fFacingRight)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        //mySpriteRenderer.flipX = !fFacingRight;
     }
 
     private void Jump(bool bGrounded)

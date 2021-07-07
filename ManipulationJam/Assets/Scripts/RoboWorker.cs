@@ -11,6 +11,7 @@ public class RoboWorker : MonoBehaviour
 
     [Header("Attack")]
     [SerializeField] float waitUntilAttack;
+    [SerializeField] float attackAnimTime;
     [SerializeField] float waitAfterAttack;
     [SerializeField] float attackRange;
     [SerializeField] float attackTime;
@@ -21,12 +22,15 @@ public class RoboWorker : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D bc;
     Transform player;
+    Animator an;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         bc = GetComponent<BoxCollider2D>();
+        an = GetComponentInChildren<Animator>();
+        an.SetBool("Walk", true);
 
         StartCoroutine(IdleMovement());
     }
@@ -37,9 +41,7 @@ public class RoboWorker : MonoBehaviour
         {
             if (Vector2.Distance(transform.position, player.position) < attackRange)
             {
-                print("Attack");
                 yield return StartCoroutine(Attack());
-                print("Damage");
             }
 
             if (transform.position.x < stoppingPointLeft)
@@ -47,7 +49,7 @@ public class RoboWorker : MonoBehaviour
             else if (transform.position.x > stoppingPointRight)
                 speedIdle = -Mathf.Abs(speedIdle);
 
-            rb.velocity = new Vector2(speedIdle * Time.deltaTime, rb.velocity.y);
+            rb.velocity = new Vector2(speedIdle * Time.fixedDeltaTime, rb.velocity.y);
 
             if (rb.velocity.x > 0.05f)
             {
@@ -76,8 +78,13 @@ public class RoboWorker : MonoBehaviour
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
+        an.SetBool("Walk", false);
 
         yield return new WaitForSeconds(waitUntilAttack);
+
+        an.SetBool("Attack", true);
+
+        yield return new WaitForSeconds(attackAnimTime);
 
 
         //DoDamage
@@ -85,7 +92,7 @@ public class RoboWorker : MonoBehaviour
         bool alreadyAttacked = false; ;
         while (time > 0)
         {
-            time -= Time.deltaTime;
+            time -= Time.fixedDeltaTime;
             if(!alreadyAttacked)
             {
                 Collider2D[] colliderList = Physics2D.OverlapAreaAll(attackPointA.position, attackPointB.position);
@@ -106,7 +113,12 @@ public class RoboWorker : MonoBehaviour
             }
             yield return null;
         }
+        an.SetBool("Attack", false);
+
         yield return new WaitForSeconds(waitAfterAttack);
+
+        an.SetBool("Walk", true);
+
     }
 
 }

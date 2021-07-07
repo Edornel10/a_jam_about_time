@@ -45,6 +45,7 @@ public class RoboNurse : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
     CircleCollider2D cc;
+    Animator an;
 
     void Start()
     {
@@ -54,6 +55,7 @@ public class RoboNurse : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         cc = GetComponent<CircleCollider2D>();
+        an = GetComponentInChildren<Animator>();
 
         StartCoroutine(Movement());
         StartCoroutine(InvokeRepeat());
@@ -71,18 +73,19 @@ public class RoboNurse : MonoBehaviour
                     fleeTimer = timeOfFleeing;
                 StartCoroutine(PathFollow());
                 followEnabled = true;
+                an.SetBool("Run", true);
             }
             else
             {
                 followEnabled = false;
-
+                an.SetBool("Run", false);
 
                 if (transform.position.x < stoppingPointLeft)
                     speedIdle = Mathf.Abs(speedIdle);
                 else if (transform.position.x > stoppingPointRight)
                     speedIdle = -Mathf.Abs(speedIdle);
 
-                rb.velocity = new Vector2(speedIdle * Time.deltaTime, rb.velocity.y);
+                rb.velocity = new Vector2(speedIdle * Time.fixedDeltaTime, rb.velocity.y);
                 if(transform.position.x - 1 < stoppingPointLeft || transform.position.x + 1 > stoppingPointRight)
                 {
                     seeker.StartPath(rb.position, startPos, OnPathComplete);
@@ -91,7 +94,7 @@ public class RoboNurse : MonoBehaviour
                     goBack = false;
                 }
             }
-            fleeTimer -= Time.deltaTime;
+            fleeTimer -= Time.fixedDeltaTime;
             yield return null;
         }
     }
@@ -137,13 +140,14 @@ public class RoboNurse : MonoBehaviour
         }
 
         // Reached end of path
-        if (currentWaypoint >= path.vectorPath.Count)
+        if (currentWaypoint >= path.vectorPath.Count && currentWaypoint > 0)
         {
             currentWaypoint = 0;
             currentPath++;
             if (currentPath >= targets.Length)
                 currentPath = 0;
-            UpdatePath();
+            print(currentPath);
+            yield return StartCoroutine(UpdatePath());
         }
 
         // See if colliding with anything
@@ -164,9 +168,9 @@ public class RoboNurse : MonoBehaviour
 
         // Movement
         if(direction.x > 0)
-            rb.velocity = new Vector2(speedFlee * Time.deltaTime, rb.velocity.y);
+            rb.velocity = new Vector2(speedFlee * Time.fixedDeltaTime, rb.velocity.y);
         else
-            rb.velocity = new Vector2(-speedFlee * Time.deltaTime, rb.velocity.y);
+            rb.velocity = new Vector2(-speedFlee * Time.fixedDeltaTime, rb.velocity.y);
 
 
         // Next Waypoint

@@ -22,13 +22,16 @@ public class RoboCleaning : MonoBehaviour
     Rigidbody2D rb;
     Transform player;
     BoxCollider2D bc;
+    Animator an;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         bc = GetComponent<BoxCollider2D>();
+        an = GetComponentInChildren<Animator>();
 
+        an.SetBool("Walk", true);
         StartCoroutine(IdleMovement());
     }
 
@@ -46,7 +49,7 @@ public class RoboCleaning : MonoBehaviour
             else if (transform.position.x > stoppingPointRight)
                 speedIdle = -Mathf.Abs(speedIdle);
 
-            rb.velocity = new Vector2(speedIdle * Time.deltaTime, rb.velocity.y);
+            rb.velocity = new Vector2(speedIdle * Time.fixedDeltaTime, rb.velocity.y);
 
             if (rb.velocity.x > 0.05f)
             {
@@ -64,11 +67,22 @@ public class RoboCleaning : MonoBehaviour
 
     IEnumerator Attack()
     {
+        an.SetBool("PreAttack", true);
         Vector2 direction = player.position - transform.position;
         rb.velocity = Vector2.zero;
 
-        yield return new WaitForSeconds(waitUntilAttack);
+        if ((player.position - transform.position).x > 0)
+        {
+            transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
+        else if ((player.position - transform.position).x < 0)
+        {
+            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+        }
 
+        yield return new WaitForSeconds(waitUntilAttack);
+        an.SetBool("PreAttack", false);
+        an.SetBool("Attack", true);
         //bc.isTrigger = true;
 
         if (direction.x < 0)
@@ -82,7 +96,7 @@ public class RoboCleaning : MonoBehaviour
         float time = attackTime;
         while (time > 0)
         {
-            time -= Time.deltaTime;
+            time -= Time.fixedDeltaTime;
             Collider2D[] colliderList = Physics2D.OverlapAreaAll(attackPointA.position, attackPointB.position);
             foreach (Collider2D collider in colliderList)
             {
@@ -99,7 +113,11 @@ public class RoboCleaning : MonoBehaviour
             }
             yield return null;
         }
+        rb.velocity = Vector2.zero;
+        an.SetBool("Attack", false);
+        an.SetBool("Walk", false);
         yield return new WaitForSeconds(waitAfterAttack);
+        an.SetBool("Walk", true);
         //bc.isTrigger = false;
     }
 }
