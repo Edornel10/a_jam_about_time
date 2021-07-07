@@ -23,6 +23,8 @@ public class RoboCleaning : MonoBehaviour
     Transform player;
     BoxCollider2D bc;
     Animator an;
+    LevelManager lm;
+
 
     void Start()
     {
@@ -30,6 +32,7 @@ public class RoboCleaning : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         bc = GetComponent<BoxCollider2D>();
         an = GetComponentInChildren<Animator>();
+        lm = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
         an.SetBool("Walk", true);
         StartCoroutine(IdleMovement());
@@ -39,7 +42,8 @@ public class RoboCleaning : MonoBehaviour
     {
         while (true)
         {
-            if(Vector2.Distance(transform.position, player.position) < attackRange)
+
+            if (Vector2.Distance(transform.position, player.position) < attackRange)
             {
                 yield return StartCoroutine(Attack());
             }

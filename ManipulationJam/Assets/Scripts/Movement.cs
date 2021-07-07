@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
     
 
     [SerializeField] LayerMask lmWalls;
+    [SerializeField] LayerMask lmLadder;
     [SerializeField] float fJumpVelocity = 5;
     [SerializeField] float fJumpPressedRememberTime = 0.2f;  
     [SerializeField] float fGroundedRememberTime = 0.25f;
@@ -25,6 +26,7 @@ public class Movement : MonoBehaviour
     [SerializeField] [Range(0, 1)] float fCutJumpHeight = 0.5f;
     [SerializeField] float dashTime = 0.5f;
     [SerializeField] float rollSpeed = 1f;
+    [SerializeField] float climbSpeed;
 
     private float fHorizontalSpeed = 10;
     private float fGroundedRemember = 0;
@@ -32,6 +34,7 @@ public class Movement : MonoBehaviour
     private float fDash = 0;
     private float fHorizontalVelocity;
     private bool fFacingRight;
+    private float gravityScale;
 
     void Start()
     {
@@ -39,6 +42,8 @@ public class Movement : MonoBehaviour
         //myAnimator = GetComponent<Animator>();
         mySpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         myBoxCollider = GetComponent<BoxCollider2D>();
+
+        gravityScale = myRigidbody.gravityScale;
     }
 
     void Update()
@@ -55,27 +60,29 @@ public class Movement : MonoBehaviour
     private void LateUpdate()
     {
         bool bGrounded = myBoxCollider.IsTouchingLayers(lmWalls);
-        Run(bGrounded);
+        bool climbing = myBoxCollider.IsTouchingLayers(lmLadder);
+        Run(bGrounded, climbing);
     }
 
-    private void Run(bool bGrounded)
+    private void Run(bool bGrounded, bool climbing)
     {
-        // FacingRight?
-        if (Mathf.Abs(fHorizontalVelocity) > 0.1f)
-            fFacingRight = (Mathf.Sign(fHorizontalVelocity) == 1) ? false : true;
-
+        
         // Move
         fHorizontalVelocity = myRigidbody.velocity.x;
         if (bGrounded)
         {
-            fHorizontalSpeed = fHorizontalBaseSpeed * fHorizontalAcceleration;
-            fHorizontalVelocity += (Input.GetAxisRaw("Horizontal") * fHorizontalAcceleration);
+            fHorizontalSpeed = fHorizontalBaseSpeed * fHorizontalAcceleration / Time.timeScale;
+            fHorizontalVelocity += (Input.GetAxisRaw("Horizontal") * fHorizontalAcceleration) / Time.timeScale;
         }
         else
         {
-            fHorizontalSpeed = fHorizontalBaseSpeed * fHorizontalAirAcceleration;
-            fHorizontalVelocity += (Input.GetAxisRaw("Horizontal") * fHorizontalAirAcceleration);
+            fHorizontalSpeed = fHorizontalBaseSpeed * fHorizontalAirAcceleration / Time.timeScale;
+            fHorizontalVelocity += Input.GetAxisRaw("Horizontal") * fHorizontalAirAcceleration / Time.timeScale;
         }
+
+        // FacingRight?
+        if (Mathf.Abs(fHorizontalVelocity) > 0.1f)
+            fFacingRight = (Mathf.Sign(Input.GetAxisRaw("Horizontal")) == 1) ? false : true;
 
         if (fDash > 0)
             if(fFacingRight)
@@ -90,7 +97,18 @@ public class Movement : MonoBehaviour
         else
             fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampingBasic, Time.fixedDeltaTime * fHorizontalSpeed);
 
-        myRigidbody.velocity = new Vector2(fHorizontalVelocity, myRigidbody.velocity.y);
+        if(climbing)
+        {
+            myRigidbody.gravityScale = 0;
+            float fVericallVelocity = Input.GetAxis("Vertical") * climbSpeed * Time.fixedDeltaTime/Time.timeScale;
+            myRigidbody.velocity = new Vector2(fVericallVelocity, myRigidbody.velocity.y);
+            myRigidbody.velocity = new Vector2(fHorizontalVelocity, fVericallVelocity);
+        }
+        else
+        {
+            myRigidbody.gravityScale = gravityScale / Time.timeScale / Time.timeScale;
+            myRigidbody.velocity = new Vector2(fHorizontalVelocity, myRigidbody.velocity.y);
+        }
 
         // Animation
         if (Mathf.Abs(fHorizontalVelocity) > 0.1f && bGrounded)
@@ -117,13 +135,13 @@ public class Movement : MonoBehaviour
 
     private void Jump(bool bGrounded)
     {
-        fGroundedRemember -= Time.deltaTime;
+        fGroundedRemember -= (Time.deltaTime / Time.timeScale);
         if (bGrounded)
         {
             fGroundedRemember = fGroundedRememberTime;
         }
 
-        fJumpPressedRemember -= Time.deltaTime;
+        fJumpPressedRemember -= (Time.deltaTime / Time.timeScale);
         if (Input.GetButtonDown("Jump"))
         {
             fJumpPressedRemember = fJumpPressedRememberTime;
@@ -141,7 +159,7 @@ public class Movement : MonoBehaviour
         {
             fJumpPressedRemember = 0;
             fGroundedRemember = 0;
-            myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, fJumpVelocity);
+            myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, fJumpVelocity / Time.timeScale);
         }
 
         if (!bGrounded)

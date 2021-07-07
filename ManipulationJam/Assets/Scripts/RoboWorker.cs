@@ -23,6 +23,8 @@ public class RoboWorker : MonoBehaviour
     BoxCollider2D bc;
     Transform player;
     Animator an;
+    LevelManager lm;
+
 
     void Start()
     {
@@ -30,6 +32,8 @@ public class RoboWorker : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         bc = GetComponent<BoxCollider2D>();
         an = GetComponentInChildren<Animator>();
+        lm = GameObject.Find("GameManager").GetComponent<LevelManager>();
+
         an.SetBool("Walk", true);
 
         StartCoroutine(IdleMovement());
@@ -39,6 +43,7 @@ public class RoboWorker : MonoBehaviour
     {
         while (true)
         {
+
             if (Vector2.Distance(transform.position, player.position) < attackRange)
             {
                 yield return StartCoroutine(Attack());

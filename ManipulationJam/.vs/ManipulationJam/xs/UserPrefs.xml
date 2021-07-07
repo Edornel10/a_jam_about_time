@@ -1,17 +1,18 @@
 ﻿<Properties StartupConfiguration="{B61FAF58-A0C2-2A9C-3328-66D9DF7EDCAA}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CinemachineShake.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RoboMechanic.cs">
     <Files>
-      <File FileName="Assets/Scripts/RoboNurse.cs" Line="77" Column="14" />
+      <File FileName="Assets/Scripts/RoboCleaning.cs" Line="46" Column="35" IsPinned="True" />
+      <File FileName="Assets/Scripts/RoboNurse.cs" Line="50" Column="1" />
+      <File FileName="Assets/Scripts/RoboWorker.cs" Line="27" Column="1" />
       <File FileName="Assets/Scripts/HealthBar.cs" />
-      <File FileName="Assets/Scripts/HealthManager.cs" Line="43" Column="6" />
-      <File FileName="Assets/Scripts/Movement.cs" Line="107" Column="48" />
-      <File FileName="Assets/Scripts/RoboCleaning.cs" Line="72" Column="36" />
-      <File FileName="Assets/Scripts/RoboWorker.cs" Line="115" Column="10" />
-      <File FileName="Assets/Scripts/PlayerHealthManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/RoboMechanic.cs" Line="73" Column="1" />
-      <File FileName="Assets/Scripts/EnemyHealthManager.cs" Line="9" Column="5" />
-      <File FileName="Assets/PlayerAttack.cs" Line="41" Column="82" />
-      <File FileName="Assets/Scripts/CinemachineShake.cs" Line="34" Column="1" />
+      <File FileName="Assets/Scripts/HealthManager.cs" />
+      <File FileName="Assets/Scripts/Movement.cs" Line="109" Column="52" />
+      <File FileName="Assets/Scripts/PlayerHealthManager.cs" />
+      <File FileName="Assets/Scripts/EnemyHealthManager.cs" />
+      <File FileName="Assets/Scripts/CinemachineShake.cs" />
+      <File FileName="Assets/Clock.cs" Line="10" Column="83" />
+      <File FileName="Assets/Scripts/LevelManager.cs" Line="12" Column="12" />
+      <File FileName="Assets/Scripts/RoboMechanic.cs" Line="27" Column="21" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

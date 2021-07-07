@@ -24,6 +24,7 @@ public class RoboMechanic : MonoBehaviour
     BoxCollider2D bc;
     Transform player;
     Animator an;
+    LevelManager lm;
 
     void Start()
     {
@@ -31,15 +32,18 @@ public class RoboMechanic : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         bc = GetComponent<BoxCollider2D>();
         an = GetComponentInChildren<Animator>();
+        lm = GameObject.Find("GameManager").GetComponent<LevelManager>();
         an.SetBool("Walk", true);
 
         StartCoroutine(IdleMovement());
+        
     }
 
     IEnumerator IdleMovement()
     {
         while (true)
         {
+
             if (Vector2.Distance(transform.position, player.position) < attackRange)
             {
                 yield return StartCoroutine(Attack());

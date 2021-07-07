@@ -3,10 +3,12 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - Bullet
     - CinemachineShake
+    - EnemyHealthManager
     - HealthBar
     - LevelManager
     - Movement
     - MusicPlayer
+    - PlayerAttack
     - PlayerHealthManager
     - RoboCleaning
     - RoboMechanic
@@ -16,14 +18,17 @@ ScriptsOnlyBuild:
     - AstarPath
     - Pathfinding.Seeker
     Cinemachine.dll:
+    - Cinemachine.CinemachineBasicMultiChannelPerlin
     - Cinemachine.CinemachineBrain
     - Cinemachine.CinemachinePipeline
     - Cinemachine.CinemachineTransposer
     - Cinemachine.CinemachineVirtualCamera
+    - Cinemachine.NoiseSettings
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
     - UnityEditor.U2D.IK.IKEditorManager
+    - UnityEditor.U2D.IK.IKGizmos
     Unity.2D.IK.Runtime.dll:
     - UnityEditor.U2D.IK.IKEditorManagerHelper
     Unity.2D.Tilemap.Editor.dll:
@@ -41,6 +46,14 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TilemapPrefabStageHelper
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
+    UnityEditor.Graphs.dll:
+    - UnityEditor.Graphs.AnimationBlendTree.Graph
+    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
+    - UnityEditor.Graphs.AnimationStateMachine.Graph
+    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
+    - UnityEditor.Graphs.AnimationStateMachine.StateNode
+    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -74,54 +87,72 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 66
       Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 640}
+      Script: {instanceID: 634}
     - Class: 114
-      Script: {instanceID: 1472}
+      Script: {instanceID: 1466}
     - Class: 114
-      Script: {instanceID: 1664}
+      Script: {instanceID: 1658}
     - Class: 114
-      Script: {instanceID: 1760}
+      Script: {instanceID: 1754}
     - Class: 114
-      Script: {instanceID: 1964}
+      Script: {instanceID: 1958}
     - Class: 114
-      Script: {instanceID: 2414}
+      Script: {instanceID: 2408}
     - Class: 114
-      Script: {instanceID: 2616}
+      Script: {instanceID: 2610}
     - Class: 114
-      Script: {instanceID: 2728}
+      Script: {instanceID: 2722}
     - Class: 114
-      Script: {instanceID: 2786}
+      Script: {instanceID: 2780}
     - Class: 114
-      Script: {instanceID: 2878}
+      Script: {instanceID: 2872}
     - Class: 114
-      Script: {instanceID: 3068}
+      Script: {instanceID: 3062}
     - Class: 114
-      Script: {instanceID: 3222}
+      Script: {instanceID: 3216}
     - Class: 114
-      Script: {instanceID: 3314}
+      Script: {instanceID: 3308}
     - Class: 114
-      Script: {instanceID: 3362}
+      Script: {instanceID: 3356}
     - Class: 114
-      Script: {instanceID: 3828}
+      Script: {instanceID: 3822}
     - Class: 114
-      Script: {instanceID: 3878}
+      Script: {instanceID: 3872}
     - Class: 114
-      Script: {instanceID: 4054}
+      Script: {instanceID: 4048}
     - Class: 114
-      Script: {instanceID: 4392}
+      Script: {instanceID: 4208}
     - Class: 114
-      Script: {instanceID: 5832}
+      Script: {instanceID: 4386}
     - Class: 114
-      Script: {instanceID: 5868}
+      Script: {instanceID: 5776}
     - Class: 114
-      Script: {instanceID: 5880}
+      Script: {instanceID: 5826}
     - Class: 114
-      Script: {instanceID: 6182}
+      Script: {instanceID: 5862}
+    - Class: 114
+      Script: {instanceID: 5874}
+    - Class: 114
+      Script: {instanceID: 6176}
+    - Class: 114
+      Script: {instanceID: 28182}
+    - Class: 114
+      Script: {instanceID: 28204}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 157
@@ -723,13 +754,13 @@ ScriptsOnlyBuild:
     className: TextContainer
   - hash:
       serializedVersion: 2
-      Hash: 0d40148b8357c7b9ac47549b6d2f2a25
+      Hash: 717f7636ec76185823a583ff12d42a03
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoboMechanic
   - hash:
       serializedVersion: 2
-      Hash: 077fdd78bf6b84243b4f8d4d2055a05e
+      Hash: 6a02c9371b0653b2b191aaf8b63ec288
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoboNurse
@@ -765,7 +796,7 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   - hash:
       serializedVersion: 2
-      Hash: 70e95520012ac8bc88143ae243b00ade
+      Hash: 626acc9f4015620426665084a4692d02
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoboCleaning
@@ -1203,7 +1234,7 @@ ScriptsOnlyBuild:
     className: FabrikSolver2D
   - hash:
       serializedVersion: 2
-      Hash: 03997eff03e7e3ac353be40cdb069408
+      Hash: a2998e1beed5bf724fbb00346dd27493
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: RoboWorker
@@ -1213,7 +1244,19 @@ ScriptsOnlyBuild:
     assemblyName: AstarPathfindingProject.dll
     namespaceName: Pathfinding
     className: SingleNodeBlocker
+  - hash:
+      serializedVersion: 2
+      Hash: 10b810d1d5228385bc87af0dfa7a2664
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: EnemyHealthManager
+  - hash:
+      serializedVersion: 2
+      Hash: e061a83b6569fec1981318bdd90ed1c8
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerAttack
   platform: 19
   scenePathNames:
   - Assets/Scenes/SampleScene.unity
-  playerPath: /Users/manuelbaumann/Documents/GitHub/a_jam_about_time/Builds/Game_V1/ManipulationJam.exe
+  playerPath: /Users/sirmakrele/OneDrive/GameJam_V2/ManipulationJam.exe

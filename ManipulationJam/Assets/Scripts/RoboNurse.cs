@@ -46,6 +46,8 @@ public class RoboNurse : MonoBehaviour
     Rigidbody2D rb;
     CircleCollider2D cc;
     Animator an;
+    LevelManager lm;
+
 
     void Start()
     {
@@ -55,6 +57,7 @@ public class RoboNurse : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         cc = GetComponent<CircleCollider2D>();
+        lm = GameObject.Find("GameManager").GetComponent<LevelManager>();
         an = GetComponentInChildren<Animator>();
 
         StartCoroutine(Movement());
