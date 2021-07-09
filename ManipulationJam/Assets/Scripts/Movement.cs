@@ -83,7 +83,7 @@ public class Movement : MonoBehaviour
         }
 
         // FacingRight?
-        if (Mathf.Abs(fHorizontalVelocity) > 0.1f)
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f)
             fFacingRight = (Mathf.Sign(Input.GetAxisRaw("Horizontal")) == 1) ? false : true;
         /*
         if (fDash > 0)

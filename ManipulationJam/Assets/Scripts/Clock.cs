@@ -13,10 +13,12 @@ public class Clock : MonoBehaviour
         if (!destroyed)
         {
             destroyed = true;
-            yield return StartCoroutine(GameObject.Find("GameManager").GetComponent<LevelManager>().StopEnemy());
 
             Instantiate(Hands, transform.position, Quaternion.identity);
             Instantiate(Hands, transform.position, Quaternion.identity);
+
+            yield return StartCoroutine(GameObject.Find("GameManager").GetComponent<LevelManager>().StopEnemy());
+
             Destroy(gameObject);
         }
     }
