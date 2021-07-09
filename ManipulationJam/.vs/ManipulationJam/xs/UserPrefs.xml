@@ -1,18 +1,19 @@
-﻿<Properties StartupConfiguration="{B61FAF58-A0C2-2A9C-3328-66D9DF7EDCAA}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RoboMechanic.cs">
+﻿<Properties>
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Hands.cs">
     <Files>
-      <File FileName="Assets/Scripts/RoboCleaning.cs" Line="46" Column="35" IsPinned="True" />
-      <File FileName="Assets/Scripts/RoboNurse.cs" Line="50" Column="1" />
-      <File FileName="Assets/Scripts/RoboWorker.cs" Line="27" Column="1" />
+      <File FileName="Assets/Scripts/RoboCleaning.cs" Line="45" Column="1" IsPinned="True" />
+      <File FileName="Assets/Scripts/RoboNurse.cs" />
+      <File FileName="Assets/Scripts/RoboWorker.cs" />
       <File FileName="Assets/Scripts/HealthBar.cs" />
       <File FileName="Assets/Scripts/HealthManager.cs" />
-      <File FileName="Assets/Scripts/Movement.cs" Line="109" Column="52" />
+      <File FileName="Assets/Scripts/Movement.cs" />
       <File FileName="Assets/Scripts/PlayerHealthManager.cs" />
       <File FileName="Assets/Scripts/EnemyHealthManager.cs" />
       <File FileName="Assets/Scripts/CinemachineShake.cs" />
-      <File FileName="Assets/Clock.cs" Line="10" Column="83" />
-      <File FileName="Assets/Scripts/LevelManager.cs" Line="12" Column="12" />
-      <File FileName="Assets/Scripts/RoboMechanic.cs" Line="27" Column="21" />
+      <File FileName="Assets/Scripts/LevelManager.cs" />
+      <File FileName="Assets/Scripts/RoboMechanic.cs" />
+      <File FileName="Assets/Scripts/PlayerAttack.cs" Line="57" Column="44" />
+      <File FileName="Assets/Hands.cs" Line="7" Column="39" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -24,7 +25,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="c838a3b8-423d-4d08-812d-1b62c1a0cf95" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="0bc44924-7110-4809-b732-2cc949b7485d" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

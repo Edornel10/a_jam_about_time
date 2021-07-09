@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Clock
+  - Hands
   layers:
   - Default
   - TransparentFX

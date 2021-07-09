@@ -7,17 +7,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] float enemyStopTime;
 
-    public bool stopEnemy = false;
     [SerializeField] Rigidbody2D playerRB;
-
-    private void Update()
-    {
-        if (stopEnemy)
-        {
-            stopEnemy = false;
-            StartCoroutine(StopEnemy());
-        }
-    }
 
     public IEnumerator StopEnemy()
     {

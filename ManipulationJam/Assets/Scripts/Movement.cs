@@ -27,10 +27,12 @@ public class Movement : MonoBehaviour
     [SerializeField] float dashTime = 0.5f;
     [SerializeField] float rollSpeed = 1f;
     [SerializeField] float climbSpeed;
+    [SerializeField] float jumpWait = 0.5f;
 
     private float fHorizontalSpeed = 10;
     private float fGroundedRemember = 0;
     private float fJumpPressedRemember = 0;
+    private float alreadyJumped = 0;
     private float fDash = 0;
     private float fHorizontalVelocity;
     private bool fFacingRight;
@@ -54,7 +56,7 @@ public class Movement : MonoBehaviour
         bool bGrounded = myBoxCollider.IsTouchingLayers(lmWalls);
 
         Jump(bGrounded);
-        Dash(bGrounded);
+        //Dash(bGrounded);
     }
 
     private void LateUpdate()
@@ -83,13 +85,13 @@ public class Movement : MonoBehaviour
         // FacingRight?
         if (Mathf.Abs(fHorizontalVelocity) > 0.1f)
             fFacingRight = (Mathf.Sign(Input.GetAxisRaw("Horizontal")) == 1) ? false : true;
-
+        /*
         if (fDash > 0)
             if(fFacingRight)
                 fHorizontalVelocity = -rollSpeed;
             else
                 fHorizontalVelocity = rollSpeed;
-
+        */
         if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.01f)
             fHorizontalVelocity *= Mathf.Pow(1f - fHorizontalDampingWhenStopping, Time.fixedDeltaTime * fHorizontalSpeed);
         else if (Mathf.Sign(Input.GetAxisRaw("Horizontal")) != Mathf.Sign(fHorizontalVelocity))
@@ -142,8 +144,10 @@ public class Movement : MonoBehaviour
         }
 
         fJumpPressedRemember -= (Time.deltaTime / Time.timeScale);
-        if (Input.GetButtonDown("Jump"))
+        alreadyJumped -= (Time.deltaTime / Time.timeScale);
+        if (Input.GetButtonDown("Jump") && alreadyJumped < 0)
         {
+            alreadyJumped = jumpWait;
             fJumpPressedRemember = fJumpPressedRememberTime;
         }
 

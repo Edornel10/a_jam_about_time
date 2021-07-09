@@ -2031,6 +2031,7 @@ MonoBehaviour:
   dashTime: 0.05
   rollSpeed: 40
   climbSpeed: 200
+  jumpWait: 0.5
 --- !u!61 &1289407928
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2092,8 +2093,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackPointA: {fileID: 552955595}
   attackPointB: {fileID: 912822749}
-  damage: 20
+  Mdamage: 20
   attackTime: 0.5
+  attackWait: 0.5
+  hands: {fileID: 1159276713206446015, guid: 40d0e1348856447d8bb8130f9a2f4682, type: 3}
+  Rdamage: 20
+  velocity: 20
 --- !u!1001 &1325953090
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2536,7 +2541,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStopTime: 2
-  stopEnemy: 0
   playerRB: {fileID: 1289407929}
 --- !u!4 &1674716703
 Transform:
@@ -55742,7 +55746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f63c83a994de441cbf9317e928b74b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Hands: {fileID: 125574856103442340, guid: 8e019557fd9d14b639f96bc5beef24db, type: 3}
+  Hands: {fileID: 1159276713206446015, guid: 40d0e1348856447d8bb8130f9a2f4682, type: 3}
 --- !u!61 &2010131911
 BoxCollider2D:
   m_ObjectHideFlags: 0
