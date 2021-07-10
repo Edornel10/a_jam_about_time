@@ -72,6 +72,7 @@ public class RoboWorker : MonoBehaviour
 
     IEnumerator Attack()
     {
+        FindObjectOfType<MusicPlayer>().Play("Ow");
         Vector2 direction = player.position - transform.position;
         rb.velocity = Vector2.zero;
 
@@ -83,11 +84,12 @@ public class RoboWorker : MonoBehaviour
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
         }
-        an.SetBool("Walk", false);
+        an.SetBool("PreAttack", true);
 
         yield return new WaitForSeconds(waitUntilAttack);
 
         an.SetBool("Attack", true);
+        an.SetBool("PreAttack", false);
 
         yield return new WaitForSeconds(attackAnimTime);
 
@@ -118,11 +120,9 @@ public class RoboWorker : MonoBehaviour
             }
             yield return null;
         }
-        an.SetBool("Attack", false);
 
         yield return new WaitForSeconds(waitAfterAttack);
-
-        an.SetBool("Walk", true);
+        an.SetBool("Attack", false);
 
     }
 

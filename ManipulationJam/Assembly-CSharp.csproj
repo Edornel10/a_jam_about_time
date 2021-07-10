@@ -68,10 +68,11 @@
     <Compile Include="Assets/Scripts/Clock.cs" />
     <Compile Include="Assets/Scripts/RoboNurse.cs" />
     <Compile Include="Assets/Scripts/RoboCleaning.cs" />
+    <Compile Include="Assets/Scripts/Hands.cs" />
     <Compile Include="Assets/Scripts/HealthBar.cs" />
     <Compile Include="Assets/Scripts/Bullet.cs" />
     <Compile Include="Assets/Scripts/RoboWorker.cs" />
-    <Compile Include="Assets/Scripts/Hands.cs" />
+    <Compile Include="Assets/Scripts/Sound.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -12869,6 +12869,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 5351785057634892753, guid: 8e850f5dca42449ec8ef822acbb27d1c, type: 3}
+      propertyPath: sounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351785057634892753, guid: 8e850f5dca42449ec8ef822acbb27d1c, type: 3}
+      propertyPath: sounds.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: f603809aad9f042a49d52925e8073bd6, type: 3}
+    - target: {fileID: 5351785057634892753, guid: 8e850f5dca42449ec8ef822acbb27d1c, type: 3}
+      propertyPath: sounds.Array.data[0].name
+      value: Ow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351785057634892753, guid: 8e850f5dca42449ec8ef822acbb27d1c, type: 3}
+      propertyPath: sounds.Array.data[0].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5351785057634892753, guid: 8e850f5dca42449ec8ef822acbb27d1c, type: 3}
+      propertyPath: sounds.Array.data[0].volume
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5351785057634892782, guid: 8e850f5dca42449ec8ef822acbb27d1c, type: 3}
       propertyPath: m_RootOrder
       value: 1

@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
+using System;
 
 public class MusicPlayer : MonoBehaviour
 {
+    public Sound[] sounds;
     static MusicPlayer instance = null;
 
     void Awake()
@@ -18,5 +21,25 @@ public class MusicPlayer : MonoBehaviour
             instance = this;
         }
         GameObject.DontDestroyOnLoad(gameObject);
+
+        foreach(Sound s in sounds)
+        {
+            s.source = gameObject.AddComponent<AudioSource>();
+            s.source.clip = s.clip;
+
+            s.source.volume = s.volume;
+            s.source.pitch = s.pitch;
+        }
+    }
+
+    public void Play (string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if(s == null)
+        {
+            print("Sound: " + name + " not found");
+            return;
+        }
+        s.source.Play();
     }
 }
