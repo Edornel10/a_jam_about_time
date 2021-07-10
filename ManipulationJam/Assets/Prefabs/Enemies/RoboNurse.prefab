@@ -152,6 +152,7 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   deathExplosion: {fileID: 2294098168879654738, guid: 7b1aa37dbed71450c82f88c2cad5fe70, type: 3}
+  damageSound: NurseDamage
 --- !u!1 &835485085186498286
 GameObject:
   m_ObjectHideFlags: 0
