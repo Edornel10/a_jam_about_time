@@ -44,6 +44,115 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a2a2ae59221c4cef8e582ac5724b27e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sounds:
+  - name: Ow
+    clip: {fileID: 8300000, guid: f603809aad9f042a49d52925e8073bd6, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ClockBreak1
+    clip: {fileID: 8300000, guid: a350bb9f45f46472fbef962bac258956, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ClockBreak2
+    clip: {fileID: 8300000, guid: e0c8308316a644af993845d63f667658, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ClockBreak3
+    clip: {fileID: 8300000, guid: c1050bd1f9df94e3cbfae6a05076fb48, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: ClockBreak4
+    clip: {fileID: 8300000, guid: 10da84127b4c44bd895a457745343863, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DoctorDamage
+    clip: {fileID: 8300000, guid: d7df7ac8d72cc48e4aaed44a8e9dbdc9, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: DoctorLaugh
+    clip: {fileID: 8300000, guid: 1245572935d3647e18bbf2c3fa8b354d, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: FootstepsConcrete
+    clip: {fileID: 8300000, guid: f96290c076ffc482d9cc6b981c951dad, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: FootstepsMetal
+    clip: {fileID: 8300000, guid: 9de5a605c379d43c59d242fd0b70bc73, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: MechDamage
+    clip: {fileID: 8300000, guid: a535456ced9ba40109e42f0aadeb36b6, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: MechGun
+    clip: {fileID: 8300000, guid: ae00bcb83a20f4ed08f4f711503e540e, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HammerHit
+    clip: {fileID: 8300000, guid: 15b6e805a02d34d85a357857a99bdf6f, type: 3}
+    volume: 0.68
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: HammerSwish
+    clip: {fileID: 8300000, guid: 3eca817b0641b49c8969d29302504b30, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 78b55823474b64d739ee64d6374630da, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: NurseDamage
+    clip: {fileID: 8300000, guid: e579183a1f562491fae31b2b57b4ca91, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: NurseMove
+    clip: {fileID: 8300000, guid: e2a1b35c552e14dfd9d829b64b25e2bc, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: WorkerDamage
+    clip: {fileID: 8300000, guid: 4b606e76d3b694736b1522345797c924, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SteamRelease
+    clip: {fileID: 8300000, guid: 5a2277c078f2a401687b7bfd2cb5bc8a, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!82 &5351785057634892783
 AudioSource:
   m_ObjectHideFlags: 0

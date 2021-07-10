@@ -8,6 +8,25 @@ public class LevelManager : MonoBehaviour
     [SerializeField] float enemyStopTime;
 
     [SerializeField] Rigidbody2D playerRB;
+    [SerializeField] Transform[] Enemies;
+    [SerializeField] Transform[] Doors;
+
+    private void Start()
+    {
+        StartCoroutine(UpdateDoorsEnemies());
+    }
+
+    IEnumerator UpdateDoorsEnemies()
+    {
+        Enemies[0].gameObject.SetActive(true);
+        for (int i = 0; i < Enemies.Length -1; i++)
+        {
+            yield return new WaitUntil(() => Enemies[i].childCount <= 0);
+            Doors[i].gameObject.SetActive(false);
+            Enemies[i + 1].gameObject.SetActive(true);
+        }
+        yield return null;
+    }
 
     public IEnumerator StopEnemy()
     {

@@ -34,6 +34,8 @@ public class RoboCleaning : MonoBehaviour
         an = GetComponentInChildren<Animator>();
         lm = GameObject.Find("GameManager").GetComponent<LevelManager>();
 
+        FindObjectOfType<MusicPlayer>().Play("CleanerSquelch");
+
         an.SetBool("Walk", true);
         StartCoroutine(IdleMovement());
     }
@@ -71,6 +73,8 @@ public class RoboCleaning : MonoBehaviour
 
     IEnumerator Attack()
     {
+        FindObjectOfType<MusicPlayer>().Stop("CleanerSquelch");
+
         an.SetBool("PreAttack", true);
         Vector2 direction = player.position - transform.position;
         rb.velocity = Vector2.zero;
@@ -87,7 +91,6 @@ public class RoboCleaning : MonoBehaviour
         yield return new WaitForSeconds(waitUntilAttack);
         an.SetBool("PreAttack", false);
         an.SetBool("Attack", true);
-        //bc.isTrigger = true;
 
         if (direction.x < 0)
             attackSpeed = -Mathf.Abs(attackSpeed);
@@ -111,7 +114,6 @@ public class RoboCleaning : MonoBehaviour
                     if (collider.transform.TryGetComponent<PlayerHealthManager>(out hm))
                     {
                         hm.InflictDamage(damage);
-                        //SendMessageUpwards("OnAttack", SendMessageOptions.DontRequireReceiver);
                     }
                 }
             }
@@ -122,6 +124,6 @@ public class RoboCleaning : MonoBehaviour
         an.SetBool("Walk", false);
         yield return new WaitForSeconds(waitAfterAttack);
         an.SetBool("Walk", true);
-        //bc.isTrigger = false;
+        FindObjectOfType<MusicPlayer>().Play("CleanerSquelch");
     }
 }

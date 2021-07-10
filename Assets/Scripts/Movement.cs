@@ -79,12 +79,17 @@ public class Movement : MonoBehaviour
                 FindObjectOfType<MusicPlayer>().Play("FootstepsConcrete");
                 footstepsPlayed = true;
             }
+            else if (footstepsPlayed && myRigidbody.velocity.x < 0.1f)
+            {
+                FindObjectOfType<MusicPlayer>().Stop("FootstepsConcrete");
+                footstepsPlayed = false;
+            }
             fHorizontalSpeed = fHorizontalBaseSpeed * fHorizontalAcceleration / Time.timeScale;
             fHorizontalVelocity += (Input.GetAxisRaw("Horizontal") * fHorizontalAcceleration) / Time.timeScale;
         }
         else
         {
-            if (footstepsPlayed && myRigidbody.velocity.x > 0.1f)
+            if (footstepsPlayed)
             {
                 FindObjectOfType<MusicPlayer>().Stop("FootstepsConcrete");
                 footstepsPlayed = false;

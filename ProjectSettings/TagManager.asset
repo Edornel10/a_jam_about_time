@@ -44,3 +44,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 2135104691
+    locked: 0
+  - name: Walls
+    uniqueID: 4197226291
+    locked: 0
+  - name: Enemy
+    uniqueID: 2912614073
+    locked: 0
+  - name: Player
+    uniqueID: 722559877
+    locked: 0
+  - name: UI
+    uniqueID: 1650939897
+    locked: 0
