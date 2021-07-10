@@ -37,6 +37,7 @@ public class Movement : MonoBehaviour
     private float fHorizontalVelocity;
     private bool fFacingRight;
     private float gravityScale;
+    private bool footstepsPlayed = false;
 
     void Start()
     {
@@ -73,11 +74,21 @@ public class Movement : MonoBehaviour
         fHorizontalVelocity = myRigidbody.velocity.x;
         if (bGrounded)
         {
+            if (!footstepsPlayed && myRigidbody.velocity.x > 0.1f)
+            {
+                FindObjectOfType<MusicPlayer>().Play("FootstepsConcrete");
+                footstepsPlayed = true;
+            }
             fHorizontalSpeed = fHorizontalBaseSpeed * fHorizontalAcceleration / Time.timeScale;
             fHorizontalVelocity += (Input.GetAxisRaw("Horizontal") * fHorizontalAcceleration) / Time.timeScale;
         }
         else
         {
+            if (footstepsPlayed && myRigidbody.velocity.x > 0.1f)
+            {
+                FindObjectOfType<MusicPlayer>().Stop("FootstepsConcrete");
+                footstepsPlayed = false;
+            }
             fHorizontalSpeed = fHorizontalBaseSpeed * fHorizontalAirAcceleration / Time.timeScale;
             fHorizontalVelocity += Input.GetAxisRaw("Horizontal") * fHorizontalAirAcceleration / Time.timeScale;
         }
@@ -147,6 +158,7 @@ public class Movement : MonoBehaviour
         alreadyJumped -= (Time.deltaTime / Time.timeScale);
         if (Input.GetButtonDown("Jump") && alreadyJumped < 0)
         {
+            FindObjectOfType<MusicPlayer>().Play("Jump");
             alreadyJumped = jumpWait;
             fJumpPressedRemember = fJumpPressedRememberTime;
         }

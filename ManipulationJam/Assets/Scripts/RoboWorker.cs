@@ -72,7 +72,6 @@ public class RoboWorker : MonoBehaviour
 
     IEnumerator Attack()
     {
-        FindObjectOfType<MusicPlayer>().Play("Ow");
         Vector2 direction = player.position - transform.position;
         rb.velocity = Vector2.zero;
 
@@ -87,6 +86,7 @@ public class RoboWorker : MonoBehaviour
         an.SetBool("PreAttack", true);
 
         yield return new WaitForSeconds(waitUntilAttack);
+        FindObjectOfType<MusicPlayer>().Play("HammerSwish");
 
         an.SetBool("Attack", true);
         an.SetBool("PreAttack", false);
@@ -111,6 +111,7 @@ public class RoboWorker : MonoBehaviour
                         PlayerHealthManager hm;
                         if (collider.transform.TryGetComponent<PlayerHealthManager>(out hm))
                         {
+                            FindObjectOfType<MusicPlayer>().Play("HammerHit");
                             hm.InflictDamage(damage);
                             alreadyAttacked = true;
                             //SendMessageUpwards("OnAttack", SendMessageOptions.DontRequireReceiver);

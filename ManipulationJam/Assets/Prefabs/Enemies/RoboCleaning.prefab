@@ -123,6 +123,7 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   deathExplosion: {fileID: 2294098168879654738, guid: 7b1aa37dbed71450c82f88c2cad5fe70, type: 3}
+  damageSound: WorkerDamage
 --- !u!1 &322102793292709572
 GameObject:
   m_ObjectHideFlags: 0

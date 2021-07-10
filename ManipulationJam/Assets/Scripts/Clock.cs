@@ -13,7 +13,7 @@ public class Clock : MonoBehaviour
         if (!destroyed)
         {
             destroyed = true;
-
+            FindObjectOfType<MusicPlayer>().Play("ClockBreak1");
             Instantiate(Hands, transform.position, Quaternion.identity);
             Instantiate(Hands, transform.position, Quaternion.identity);
 

@@ -87,6 +87,7 @@ public class RoboMechanic : MonoBehaviour
         an.SetBool("Walk", false);
 
         yield return new WaitForSeconds(waitUntilAttack);
+        FindObjectOfType<MusicPlayer>().Play("MechGun");
 
         an.SetBool("Attack", true);
 

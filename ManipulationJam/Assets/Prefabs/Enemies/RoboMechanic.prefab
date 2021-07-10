@@ -224,6 +224,7 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   deathExplosion: {fileID: 2294098168879654738, guid: 7b1aa37dbed71450c82f88c2cad5fe70, type: 3}
+  damageSound: MechDamage
 --- !u!1001 &5919682778914294970
 PrefabInstance:
   m_ObjectHideFlags: 0

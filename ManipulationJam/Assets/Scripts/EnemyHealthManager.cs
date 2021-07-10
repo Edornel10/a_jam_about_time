@@ -7,6 +7,7 @@ public class EnemyHealthManager : MonoBehaviour
     [SerializeField] float maxHealth = 100.0f;
     [SerializeField] private float health = 100.0f;
     [SerializeField] private GameObject deathExplosion;
+    [SerializeField] private string damageSound; 
 
     private float shakeMagnitude = 1;
     private float shakeDuration = .2f;
@@ -39,6 +40,7 @@ public class EnemyHealthManager : MonoBehaviour
 
     public void InflictDamage(float d)
     {
+        FindObjectOfType<MusicPlayer>().Play(damageSound);
         health -= d;
         healthBar.SetLife(health);
     }

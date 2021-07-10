@@ -29,6 +29,7 @@ public class MusicPlayer : MonoBehaviour
 
             s.source.volume = s.volume;
             s.source.pitch = s.pitch;
+            s.source.loop = s.loop;
         }
     }
 
@@ -41,5 +42,16 @@ public class MusicPlayer : MonoBehaviour
             return;
         }
         s.source.Play();
+    }
+
+    public void Stop(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null)
+        {
+            print("Sound: " + name + " not found");
+            return;
+        }
+        s.source.Stop();
     }
 }
