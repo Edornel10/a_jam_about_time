@@ -1116,6 +1116,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9144741676407492393, guid: a51483aabc30d452bb65459d416f37e0, type: 3}
+      propertyPath: stoppingPointLeft
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 9144741676407492393, guid: a51483aabc30d452bb65459d416f37e0, type: 3}
+      propertyPath: stoppingPointRight
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 9144741676407492394, guid: a51483aabc30d452bb65459d416f37e0, type: 3}
       propertyPath: m_Name
       value: RoboWorker
@@ -1126,11 +1134,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9144741676407492398, guid: a51483aabc30d452bb65459d416f37e0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 29.873648
+      value: 29.83
       objectReference: {fileID: 0}
     - target: {fileID: 9144741676407492398, guid: a51483aabc30d452bb65459d416f37e0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.9466095
+      value: -7.81
       objectReference: {fileID: 0}
     - target: {fileID: 9144741676407492398, guid: a51483aabc30d452bb65459d416f37e0, type: 3}
       propertyPath: m_LocalPosition.z
