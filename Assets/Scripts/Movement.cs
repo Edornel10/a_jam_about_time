@@ -74,12 +74,12 @@ public class Movement : MonoBehaviour
         fHorizontalVelocity = myRigidbody.velocity.x;
         if (bGrounded)
         {
-            if (!footstepsPlayed && myRigidbody.velocity.x > 0.1f)
+            if (!footstepsPlayed && Mathf.Abs( myRigidbody.velocity.x) > 0.1f)
             {
                 FindObjectOfType<MusicPlayer>().Play("FootstepsConcrete");
                 footstepsPlayed = true;
             }
-            else if (footstepsPlayed && myRigidbody.velocity.x < 0.1f)
+            else if (footstepsPlayed && Mathf.Abs(myRigidbody.velocity.x) < 0.1f)
             {
                 FindObjectOfType<MusicPlayer>().Stop("FootstepsConcrete");
                 footstepsPlayed = false;
@@ -118,7 +118,7 @@ public class Movement : MonoBehaviour
         if(climbing)
         {
             myRigidbody.gravityScale = 0;
-            float fVericallVelocity = Input.GetAxis("Vertical") * climbSpeed * Time.fixedDeltaTime/Time.timeScale;
+            float fVericallVelocity = Input.GetAxis("Vertical") * climbSpeed * Time.fixedDeltaTime/Time.timeScale / Time.timeScale;
             myRigidbody.velocity = new Vector2(fVericallVelocity, myRigidbody.velocity.y);
             myRigidbody.velocity = new Vector2(fHorizontalVelocity, fVericallVelocity);
         }

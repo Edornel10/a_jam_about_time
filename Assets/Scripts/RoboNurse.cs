@@ -72,6 +72,8 @@ public class RoboNurse : MonoBehaviour
             float distance = Vector2.Distance(rb.position, player.transform.position);
             if (distance < distanceToFlee || fleeTimer > 0)
             {
+                FindObjectOfType<MusicPlayer>().Stop("NurseMove");
+
                 if (distance < distanceToFlee)
                     fleeTimer = timeOfFleeing;
                 StartCoroutine(PathFollow());
@@ -80,6 +82,8 @@ public class RoboNurse : MonoBehaviour
             }
             else
             {
+                FindObjectOfType<MusicPlayer>().Play("NurseMove");
+
                 followEnabled = false;
                 an.SetBool("Run", false);
 
