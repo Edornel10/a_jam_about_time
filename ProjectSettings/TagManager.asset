@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Clock
   - Hands
+  - Health
   layers:
   - Default
   - TransparentFX

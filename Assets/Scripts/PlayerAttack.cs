@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] float Mdamage = 20f;
     [SerializeField] float attackTime = 0.5f;
     [SerializeField] float attackWait = 0.5f;
+    [SerializeField] float waitUntilAttack = 0.15f;
 
     [Header("Ranged")]
     [SerializeField] GameObject hands;
@@ -18,10 +19,11 @@ public class PlayerAttack : MonoBehaviour
 
     private int handsCount = 0;
     private float attackTimer = 0;
+    private Animator an;
 
     void Start()
     {
-        
+        an = GetComponentInChildren<Animator>();   
     }
 
     private void Update()
@@ -43,7 +45,9 @@ public class PlayerAttack : MonoBehaviour
     {
         attackTimer = attackWait;
         float time = attackTime;
-        bool alreadyAttacked = false; ;
+        bool alreadyAttacked = false;
+        an.SetTrigger("Attack");
+        yield return new WaitForSeconds(waitUntilAttack*Time.timeScale);
         while (time > 0)
         {
             time -= Time.deltaTime;
@@ -76,7 +80,12 @@ public class PlayerAttack : MonoBehaviour
     IEnumerator RangeAttack()
     {
         attackTimer = attackWait;
-        GameObject hand = Instantiate(hands, transform.position, Quaternion.identity);
+
+        Vector2 dir = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
+
+        GameObject hand = Instantiate(hands, transform.position, Quaternion.AngleAxis(angle, Vector3
+            .forward));
         Vector2 shootDir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
 
         hand.GetComponent<Rigidbody2D>().velocity = shootDir.normalized * velocity;

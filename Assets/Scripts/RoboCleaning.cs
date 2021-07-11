@@ -89,6 +89,8 @@ public class RoboCleaning : MonoBehaviour
         }
 
         yield return new WaitForSeconds(waitUntilAttack);
+        FindObjectOfType<MusicPlayer>().Play("CleanerDash");
+
         an.SetBool("PreAttack", false);
         an.SetBool("Attack", true);
 

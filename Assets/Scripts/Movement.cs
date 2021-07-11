@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour
     //Animator myAnimator;
     SpriteRenderer mySpriteRenderer;
     BoxCollider2D myBoxCollider;
+    Animator an;
     [SerializeField] ParticleSystem moveParticles;
     
 
@@ -42,7 +43,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
-        //myAnimator = GetComponent<Animator>();
+        an = GetComponentInChildren<Animator>();
         mySpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         myBoxCollider = GetComponent<BoxCollider2D>();
 
@@ -74,14 +75,16 @@ public class Movement : MonoBehaviour
         fHorizontalVelocity = myRigidbody.velocity.x;
         if (bGrounded)
         {
-            if (!footstepsPlayed && Mathf.Abs( myRigidbody.velocity.x) > 0.1f)
+            if (!footstepsPlayed && Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f)
             {
                 FindObjectOfType<MusicPlayer>().Play("FootstepsConcrete");
+                an.SetBool("Run", true);
                 footstepsPlayed = true;
             }
-            else if (footstepsPlayed && Mathf.Abs(myRigidbody.velocity.x) < 0.1f)
+            else if (footstepsPlayed && Mathf.Abs(Input.GetAxisRaw("Horizontal")) < 0.1f)
             {
                 FindObjectOfType<MusicPlayer>().Stop("FootstepsConcrete");
+                an.SetBool("Run", false);
                 footstepsPlayed = false;
             }
             fHorizontalSpeed = fHorizontalBaseSpeed * fHorizontalAcceleration / Time.timeScale;
@@ -92,6 +95,7 @@ public class Movement : MonoBehaviour
             if (footstepsPlayed)
             {
                 FindObjectOfType<MusicPlayer>().Stop("FootstepsConcrete");
+                an.SetBool("Run", false);
                 footstepsPlayed = false;
             }
             fHorizontalSpeed = fHorizontalBaseSpeed * fHorizontalAirAcceleration / Time.timeScale;
@@ -99,7 +103,7 @@ public class Movement : MonoBehaviour
         }
 
         // FacingRight?
-        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.1f)
+        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0.5f)
             fFacingRight = (Mathf.Sign(Input.GetAxisRaw("Horizontal")) == 1) ? false : true;
         /*
         if (fDash > 0)
@@ -117,6 +121,7 @@ public class Movement : MonoBehaviour
 
         if(climbing)
         {
+            an.SetBool("Climb", true);
             myRigidbody.gravityScale = 0;
             float fVericallVelocity = Input.GetAxis("Vertical") * climbSpeed * Time.fixedDeltaTime/Time.timeScale / Time.timeScale;
             myRigidbody.velocity = new Vector2(fVericallVelocity, myRigidbody.velocity.y);
@@ -124,6 +129,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
+            an.SetBool("Climb", false);
             myRigidbody.gravityScale = gravityScale / Time.timeScale / Time.timeScale;
             myRigidbody.velocity = new Vector2(fHorizontalVelocity, myRigidbody.velocity.y);
         }
@@ -156,6 +162,8 @@ public class Movement : MonoBehaviour
         fGroundedRemember -= (Time.deltaTime / Time.timeScale);
         if (bGrounded)
         {
+            an.SetBool("JumpUp", false);
+            an.SetBool("JumpDown", false);
             fGroundedRemember = fGroundedRememberTime;
         }
 
@@ -166,15 +174,23 @@ public class Movement : MonoBehaviour
             FindObjectOfType<MusicPlayer>().Play("Jump");
             alreadyJumped = jumpWait;
             fJumpPressedRemember = fJumpPressedRememberTime;
+            an.SetBool("JumpUp", true);
         }
 
-        if (Input.GetButtonUp("Jump"))
+
+        if (myRigidbody.velocity.y > 0)
         {
-            if (myRigidbody.velocity.y > 0)
+            if (Input.GetButtonUp("Jump"))
             {
                 myRigidbody.velocity = new Vector2(myRigidbody.velocity.x, myRigidbody.velocity.y * fCutJumpHeight);
             }
         }
+        else
+        {
+            if(!bGrounded)
+                an.SetBool("JumpDown", true);
+        }
+        
 
         if ((fJumpPressedRemember > 0) && (fGroundedRemember > 0))
         {

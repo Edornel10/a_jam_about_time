@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Pathfinding;
+//using Pathfinding;
 
 public class RoboNurse : MonoBehaviour
 {
@@ -35,14 +35,14 @@ public class RoboNurse : MonoBehaviour
 
 
     Transform player;
-    private Path path;
+    //private Path path;
     private int currentWaypoint = 0;
-    private int currentPath = 0;
+    //private int currentPath = 0;
     private float fleeTimer = 0f;
     private Vector2 startPos;
     bool isGrounded = false;
     bool goBack = false;
-    Seeker seeker;
+    //Seeker seeker;
     Rigidbody2D rb;
     CircleCollider2D cc;
     Animator an;
@@ -54,14 +54,14 @@ public class RoboNurse : MonoBehaviour
         startPos = transform.position;
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        seeker = GetComponent<Seeker>();
+        //seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         cc = GetComponent<CircleCollider2D>();
         lm = GameObject.Find("GameManager").GetComponent<LevelManager>();
         an = GetComponentInChildren<Animator>();
 
         StartCoroutine(Movement());
-        StartCoroutine(InvokeRepeat());
+        //StartCoroutine(InvokeRepeat());
     }
 
     private IEnumerator Movement()
@@ -91,11 +91,25 @@ public class RoboNurse : MonoBehaviour
                     speedIdle = Mathf.Abs(speedIdle);
                 else if (transform.position.x > stoppingPointRight)
                     speedIdle = -Mathf.Abs(speedIdle);
-
                 rb.velocity = new Vector2(speedIdle * Time.fixedDeltaTime, rb.velocity.y);
+
+                if (directionLookEnabled)
+                {
+                    if (rb.velocity.x > Mathf.Epsilon)
+                    {
+                        transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                    }
+                    else if (rb.velocity.x < -Mathf.Epsilon)
+                    {
+                        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                    }
+                }
+
                 if(transform.position.x - 1 < stoppingPointLeft || transform.position.x + 1 > stoppingPointRight)
                 {
-                    seeker.StartPath(rb.position, startPos, OnPathComplete);
+                    //seeker.StartPath(rb.position, startPos, OnPathComplete);
+
+                    // Set current waypoint.
                     goBack = true;
                     yield return StartCoroutine(GoToStartPos());
                     goBack = false;
@@ -108,61 +122,38 @@ public class RoboNurse : MonoBehaviour
 
     private IEnumerator GoToStartPos()
     {
-        while(transform.position.x < stoppingPointLeft || transform.position.x > stoppingPointRight)
+        float distance = Vector2.Distance(rb.position, player.transform.position);
+        while (distance < nextWaypointDistance)
         {
-            yield return StartCoroutine(PathFollow());
+            // Direction Calculation
+            Vector2 direction = (startPos - rb.position).normalized;
+
+            // Movement
+            if (direction.x > 0)
+                rb.velocity = new Vector2(speedFlee * Time.fixedDeltaTime, rb.velocity.y);
+            else
+                rb.velocity = new Vector2(-speedFlee * Time.fixedDeltaTime, rb.velocity.y);
             yield return null;
         }
         yield return null;
     }
 
-    private IEnumerator InvokeRepeat()
-    {
-        while (true)
-        {
-            StartCoroutine(UpdatePath());
-            yield return new WaitForSeconds(pathUpdateSeconds);
-        }
-    }
-
-    private IEnumerator UpdatePath()
-    {
-
-        if (followEnabled && TargetInDistance() && seeker.IsDone())
-        {
-            seeker.StartPath(rb.position, targets[currentPath].position, OnPathComplete);
-        }
-        if(goBack)
-        {
-            seeker.StartPath(rb.position, startPos, OnPathComplete);
-        }
-        yield return null;
-    }
 
     private IEnumerator PathFollow()
     {
-        if (path == null)
-        {
-            yield return null;
-        }
 
-        // Reached end of path
-        if (currentWaypoint >= path.vectorPath.Count && currentWaypoint > 0)
+
+        if (currentWaypoint >= targets.Length && currentWaypoint > 0)
         {
             currentWaypoint = 0;
-            currentPath++;
-            if (currentPath >= targets.Length)
-                currentPath = 0;
-            print(currentPath);
-            yield return StartCoroutine(UpdatePath());
         }
 
         // See if colliding with anything
         bool isGrounded = cc.IsTouchingLayers(lmWalls);
 
         // Direction Calculation
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        //Vector2 force = direction * speed * Time.deltaTime;
+        Vector2 direction = ((Vector2)targets[currentWaypoint].position - rb.position).normalized;
+
 
         // Jump
         if (jumpEnabled && isGrounded)
@@ -181,7 +172,7 @@ public class RoboNurse : MonoBehaviour
 
 
         // Next Waypoint
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+        float distance = Vector2.Distance(rb.position, (Vector2)targets[currentWaypoint].position);
         if (distance < nextWaypointDistance)
         {
             currentWaypoint++;
@@ -190,11 +181,11 @@ public class RoboNurse : MonoBehaviour
         // Direction Graphics Handling
         if (directionLookEnabled)
         {
-            if (rb.velocity.x > 0.05f)
+            if (rb.velocity.x > Mathf.Epsilon)
             {
                 transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
-            else if (rb.velocity.x < -0.05f)
+            else if (rb.velocity.x < -Mathf.Epsilon)
             {
                 transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
             }
@@ -204,24 +195,12 @@ public class RoboNurse : MonoBehaviour
 
     private IEnumerator Jump()
     {
-        yield return UpdatePath();
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
+        //yield return UpdatePath();
+        Vector2 direction = ((Vector2)targets[currentWaypoint].position - rb.position).normalized;
         if (direction.y > jumpNodeHeightRequirement)
         {
             rb.velocity = new Vector2(rb.velocity.x, direction.y * jumpModifier);
         }
-    }
-
-    private bool TargetInDistance()
-    {
-        return Vector2.Distance(transform.position, targets[currentPath].transform.position) < activateDistance;
-    }
-
-    private void OnPathComplete(Path p)
-    {
-        if (!p.error)
-        {
-            path = p;
-        }
+        yield return null;
     }
 }

@@ -17,6 +17,7 @@ public class PlayerHealthManager : MonoBehaviour
     private CinemachineShake cs;
     private HealthBar healthBar;
     private SpriteRenderer sp;
+    private Animator an;
 
     bool shaken = false;
     float damageTimer;
@@ -28,6 +29,7 @@ public class PlayerHealthManager : MonoBehaviour
         health = maxHealth;
         cs = GameObject.Find("CM vcam1").GetComponent<CinemachineShake>();
         sp = GetComponentInChildren<SpriteRenderer>();
+        an = GetComponentInChildren<Animator>();
     }
 
     private void Update()
@@ -51,11 +53,24 @@ public class PlayerHealthManager : MonoBehaviour
     {
         if (damageTimer <= 0)
         {
+            an.SetTrigger("Damage");
             damageTimer = invisibleTimeAfterDamage;
             sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, .5f);
-            Debug.Log(d);
             health -= d;
             healthBar.SetLife(health);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.transform.tag == "Health")
+        {
+            sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, .5f);
+            health += 20;
+            if (health > maxHealth)
+                health = maxHealth;
+            healthBar.SetLife(health);
+            Destroy(collision.gameObject);
         }
     }
 }
