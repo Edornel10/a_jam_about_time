@@ -114,7 +114,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   maxVelocity: 1
-  nextWaypointDistance: 1
+  nextWaypointDistance: 2
   jumpNodeHeightRequirement: 0.25
   jumpModifier: 30
   jumpCheckOffset: 0.1
@@ -152,6 +152,7 @@ MonoBehaviour:
   maxHealth: 100
   health: 100
   deathExplosion: {fileID: 2294098168879654738, guid: 7b1aa37dbed71450c82f88c2cad5fe70, type: 3}
+  healthBox: {fileID: 4708285249587083690, guid: 58502c42135e446cfbf9aa1d9d853223, type: 3}
   damageSound: NurseDamage
 --- !u!1 &835485085186498286
 GameObject:

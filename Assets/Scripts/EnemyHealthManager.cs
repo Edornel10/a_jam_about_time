@@ -7,6 +7,7 @@ public class EnemyHealthManager : MonoBehaviour
     [SerializeField] float maxHealth = 100.0f;
     [SerializeField] private float health = 100.0f;
     [SerializeField] private GameObject deathExplosion;
+    [SerializeField] private GameObject healthBox;
     [SerializeField] private string damageSound; 
 
     private float shakeMagnitude = 1;
@@ -32,6 +33,11 @@ public class EnemyHealthManager : MonoBehaviour
         if (health <= 0 && !shaken)
         {
             Instantiate(deathExplosion, transform.position, Quaternion.identity);
+            if(healthBox != null)
+            {
+                Instantiate(healthBox, transform.position, Quaternion.identity);
+                Instantiate(healthBox, transform.position, Quaternion.identity);
+            }
             cs.Shake(shakeDuration, shakeMagnitude, frequency);
             Destroy(gameObject);
         }

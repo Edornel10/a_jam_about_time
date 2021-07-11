@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,8 +58,21 @@ public class PlayerHealthManager : MonoBehaviour
             damageTimer = invisibleTimeAfterDamage;
             sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, .5f);
             health -= d;
+            if(health <= 0)
+            {
+                an.SetBool("Die", true);
+                Invoke("ReloadLevel", 4);
+                GetComponent<Movement>().enabled = false;
+                GetComponent<PlayerAttack>().enabled = false;
+
+            }
             healthBar.SetLife(health);
         }
+    }
+
+    private void ReloadLevel()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

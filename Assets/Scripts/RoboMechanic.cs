@@ -74,14 +74,17 @@ public class RoboMechanic : MonoBehaviour
     {
         Vector2 direction = player.position - transform.position;
         rb.velocity = Vector2.zero;
+        float rotation = 0;
 
         if ((player.position - transform.position).x > 0)
         {
             transform.localScale = new Vector3(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            rotation = -90;
         }
         else if ((player.position - transform.position).x < 0)
         {
             transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+            rotation = 90;
         }
 
         an.SetBool("Walk", false);
@@ -93,13 +96,13 @@ public class RoboMechanic : MonoBehaviour
 
         yield return new WaitForSeconds(attackAnimTime);
 
-        GameObject shot = Instantiate(bullet, transform.position, Quaternion.identity);
+        GameObject shot = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0,0,rotation)));
         shot.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Sign(direction.x) * bulletSpeed, spread);
 
-        shot = Instantiate(bullet, transform.position, Quaternion.identity);
+        shot = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, rotation)));
         shot.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Sign(direction.x) * bulletSpeed, 0);
 
-        shot = Instantiate(bullet, transform.position, Quaternion.identity);
+        shot = Instantiate(bullet, transform.position, Quaternion.Euler(new Vector3(0, 0, rotation)));
         shot.GetComponent<Rigidbody2D>().velocity = new Vector2(Mathf.Sign(direction.x) * bulletSpeed, -spread);
 
         an.SetBool("Attack", false);

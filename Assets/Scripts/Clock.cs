@@ -48,8 +48,6 @@ public class Clock : MonoBehaviour
             
 
             yield return StartCoroutine(GameObject.Find("GameManager").GetComponent<LevelManager>().StopEnemy());
-
-            Destroy(gameObject);
         }
     }
 }
