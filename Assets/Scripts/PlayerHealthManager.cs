@@ -72,5 +72,9 @@ public class PlayerHealthManager : MonoBehaviour
             healthBar.SetLife(health);
             Destroy(collision.gameObject);
         }
+        if(collision.transform.tag == "Sawmill")
+        {
+            InflictDamage(20);
+        }
     }
 }
