@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Rust
-  m_Shader: {fileID: 4800000, guid: c3420deeeea3a4ca3816d0f4ef6bface, type: 3}
+  m_Shader: {fileID: 4800000, guid: dade5b55453234a78b992957395c5f09, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -25,8 +25,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - PixelSnap: 0
-    - _Explode: 0
+    - _Explode: -0.72
+    - _Rust: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _OutlineColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0.9339623, g: 0.8277863, b: 0.022027409, a: 1}
+    - _RustColorGreen: {r: 0.5882, g: 0.8235, b: 0.7176, a: 1}
+    - _RustColorRed: {r: 0.7176, g: 0.2549, b: 0.0549, a: 1}
   m_BuildTextureStacks: []

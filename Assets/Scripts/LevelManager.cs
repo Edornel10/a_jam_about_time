@@ -6,14 +6,28 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] float enemyStopTime;
+    [SerializeField] GameObject Info;
 
     [SerializeField] Rigidbody2D playerRB;
+    [SerializeField] Transform player;
     [SerializeField] Transform[] Enemies;
     [SerializeField] Transform[] Doors;
 
+    [SerializeField] Material mat;
+
+    private Vector2 startPos;
+
     private void Start()
     {
+        startPos = player.position;
         StartCoroutine(UpdateDoorsEnemies());
+        StartCoroutine(WaitUntilMove());
+    }
+
+    IEnumerator WaitUntilMove()
+    {
+        yield return new WaitUntil(() => Vector2.Distance(player.position, startPos) > 5);
+        Info.SetActive(false);
     }
 
     IEnumerator UpdateDoorsEnemies()
@@ -33,10 +47,29 @@ public class LevelManager : MonoBehaviour
         playerRB.velocity /= 0.2f;
         Time.timeScale = 0.2f;
         Time.fixedDeltaTime = 0.02F * Time.timeScale;
-        yield return new WaitForSeconds(enemyStopTime);
+        float timer = enemyStopTime;
+        float rust = 0;
+        while(timer > 0)
+        {
+            mat.SetFloat("_Rust", 2f);
+            timer -= Time.fixedDeltaTime/Time.timeScale;
+            rust += Time.fixedDeltaTime;
+            mat.SetFloat("_Rust", rust);
+            yield return null;
+        }
         playerRB.velocity *= 0.2f;
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02F;
+        timer = 3f;
+        rust = 2;
+        while (timer > 0)
+        {
+            timer -= Time.fixedDeltaTime;
+            rust -= Time.fixedDeltaTime * 2;
+            mat.SetFloat("_Rust", rust);
+            yield return null;
+        }
+        mat.SetFloat("_Rust", 0);
         yield return null;
     }
 
