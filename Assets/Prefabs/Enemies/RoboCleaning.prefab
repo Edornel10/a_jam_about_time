@@ -120,9 +120,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5733d4875c464090acefa081b940fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  health: 100
+  maxHealth: 60
+  health: 60
   deathExplosion: {fileID: 2294098168879654738, guid: 7b1aa37dbed71450c82f88c2cad5fe70, type: 3}
+  healthBox: {fileID: 0}
   damageSound: WorkerDamage
 --- !u!1 &322102793292709572
 GameObject:

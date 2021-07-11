@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] float enemyStopTime;
-    [SerializeField] GameObject Info;
+    [SerializeField] GameObject Info1;
+    [SerializeField] GameObject Info2;
 
     [SerializeField] Rigidbody2D playerRB;
     [SerializeField] Transform player;
@@ -27,7 +28,8 @@ public class LevelManager : MonoBehaviour
     IEnumerator WaitUntilMove()
     {
         yield return new WaitUntil(() => Vector2.Distance(player.position, startPos) > 5);
-        Info.SetActive(false);
+        Info1.SetActive(false);
+        Info2.SetActive(false);
     }
 
     IEnumerator UpdateDoorsEnemies()

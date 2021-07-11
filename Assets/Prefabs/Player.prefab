@@ -142,7 +142,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 722559877
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3dd7d0ffcc17443b988e530073495015, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -249,7 +249,7 @@ MonoBehaviour:
   fGroundedRememberTime: 0.2
   fHorizontalAcceleration: 1
   fHorizontalAirAcceleration: 0.25
-  fHorizontalBaseSpeed: 3
+  fHorizontalBaseSpeed: 2
   fHorizontalDampingBasic: 0.94
   fHorizontalDampingWhenStopping: 0.81
   fHorizontalDampingWhenTurning: 0.7
@@ -337,6 +337,7 @@ MonoBehaviour:
   Mdamage: 20
   attackTime: 0.5
   attackWait: 0.5
+  waitUntilAttack: 0.15
   hands: {fileID: 1159276713206446015, guid: 40d0e1348856447d8bb8130f9a2f4682, type: 3}
   Rdamage: 20
   velocity: 20
